@@ -8,6 +8,7 @@ import {
   TableRow,
   TableCell
 } from "@material-ui/core";
+import { connect } from 'react-redux';
 
 
 const Table = props => {
@@ -39,5 +40,10 @@ const Table = props => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  };
+};
 
-export default Table;
+export default connect(mapStateToProps)(Table);
