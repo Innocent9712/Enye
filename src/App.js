@@ -1,16 +1,20 @@
 //  Parent component
 
-import React, { Fragment} from "react";
+import React, { Fragment, useState} from "react";
 import { Grid } from "@material-ui/core";
 import Table from "./table";
 import UserForm from "./form";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import TypoGraphy from "@material-ui/core/Typography";
-import { connect } from 'react-redux';
-import { addUser } from './actions/user';
 
-const App = (props) => {
+const App = () => {
+  const UserState = [{}]
+  const [users, setUser] = useState(UserState);
+
+  const addUser = user => {
+    setUser([...UserState, user]);
+  };
 
   return (
     <Fragment>
@@ -22,13 +26,11 @@ const App = (props) => {
         </Toolbar>
       </AppBar>
       <Grid container>
-        <UserForm onSubmit={user => {
-          props.dispatch(addUser(user))
-        }} />
-        <Table />
+        <UserForm addUser={addUser} />
+        <Table users={users}/>
       </Grid>
       </Fragment>
   );
 };
 
-export default connect()(App);
+export default App;
